@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <input id="input" type="text" placeholder="0" readonly>
+            <button class="btn" onclick="appendNumber('7')">7</button>
+            <button class="btn" onclick="appendNumber('8')">8</button>
+            <button class="btn" onclick="appendNumber('9')">9</button>
+            <button class="btn" onclick="appendOperator('+')">+</button>
+            <button class="btn" onclick="appendNumber('4')">4</button>
+            <button class="btn" onclick="appendNumber('5')">5</button>
+            <button class="btn" onclick="appendNumber('6')">6</button>
+            <button class="btn" onclick="appendOperator('-')">-</button>
+            <button class="btn" onclick="appendNumber('1')">1</button>
+            <button class="btn" onclick="appendNumber('2')">2</button>
+            <button class="btn" onclick="appendNumber('3')">3</button>
+            <button class="btn" onclick="appendOperator('+')">/</button>
+            <button class="btn" onclick="appendNumber('7')">0</button>
+            <button class="btn" onclick="clearInput()">C</button>
+            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" onclick="appendOperator('+')">*</button>
+
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let operator = '';
+        let previousInput = '';
+
+        function appendNumber(number) {
+            currentInput += number;
+            document.getElementById('input').value = currentInput;
+        }
+
+        function appendOperator(op) {
+            if (currentInput === '') return; // Prevent adding operator first
+            operator = op;
+            previousInput = currentInput;
+            currentInput = '';
+        }
+
+        function calculate() {
+            if (previousInput === '' || currentInput === '' || operator === '') return;
+            let result;
+            const prev = parseFloat(previousInput);
+            const curr = parseFloat(currentInput);
+
+            if (operator === '+') {
+                
+                result = prev + curr;
+            } else if (operator === '-') {
+                result = prev - curr;
+            }
+
+            document.getElementById('input').value = result;
+            currentInput = result.toString(); // So user can continue calculating with result
+            previousInput = '';
+            operator = '';
+        }
+
+        function clearInput() {
+            currentInput = '';
+            previousInput = '';
+            operator = '';
+            document.getElementById('input').value = '';
+        }
+    </script>
+</body>
+</html>
